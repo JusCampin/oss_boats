@@ -806,11 +806,12 @@ end
 
 -- Blips
 function AddBlip(shopId)
-   if Config.BoatShops[shopId].blipAllowed then
-        Config.BoatShops[shopId].BlipHandle = N_0x554d9d53f696d002(1664425300, Config.BoatShops[shopId].npcx, Config.BoatShops[shopId].npcy, Config.BoatShops[shopId].npcz) -- BlipAddForCoords
-        SetBlipSprite(Config.BoatShops[shopId].BlipHandle, Config.BoatShops[shopId].sprite, 1)
-        SetBlipScale(Config.BoatShops[shopId].BlipHandle, 0.2)
-        Citizen.InvokeNative(0x9CB1A1623062F402, Config.BoatShops[shopId].BlipHandle, Config.BoatShops[shopId].BlipName) -- SetBlipNameFromPlayerString
+    local shopConfig = Config.boatShops[shopId]
+    if shopConfig.blipAllowed then
+        shopConfig.BlipHandle = N_0x554d9d53f696d002(1664425300, shopConfig.npcx, shopConfig.npcy, shopConfig.npcz) -- BlipAddForCoords
+        SetBlipSprite(shopConfig.BlipHandle, shopConfig.blipSprite, 1)
+        SetBlipScale(shopConfig.BlipHandle, 0.2)
+        Citizen.InvokeNative(0x9CB1A1623062F402, shopConfig.BlipHandle, shopConfig.blipName) -- SetBlipNameFromPlayerString
     end
 end
 
