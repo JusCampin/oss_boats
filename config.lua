@@ -19,7 +19,7 @@ Config.boatShops = {
         promptName = "Lagras Boats", -- Text Below the Prompt Button
         blipAllowed = true, -- Turns Blips On / Off
         blipName = "Lagras Boats", -- Name of the Blip on the Map
-        blipSprite = "blip_mp_game_race_canoe",-- "blip_mp_game_race_canoe" / "blip_ambient_tugboat"
+        blipSprite = 2005921736, -- 2005921736 = Canoe / -1018164873 = Tugboat
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32", -- Shop Open - Blip Colors Shown Below
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10", -- Shop Closed - Blip Colors Shown Below
         npcx = 2123.95, npcy = -551.63, npcz = 41.53, npch = 113.62, -- Blip and NPC Positions
@@ -51,7 +51,7 @@ Config.boatShops = {
         promptName = "Saint Denis Boats",
         blipAllowed = true,
         blipName = "Saint Denis Boats",
-        blipSprite = "blip_ambient_tugboat",-- -1018164873,
+        blipSprite = -1018164873,
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32",
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10",
         npcx = 2949.77, npcy = -1250.18, npcz = 41.411, npch = 95.39,
@@ -83,7 +83,7 @@ Config.boatShops = {
         promptName = "Annesburg Boats",
         blipAllowed = true,
         blipName = "Annesburg Boats",
-        blipSprite = "blip_ambient_tugboat",-- -1018164873,
+        blipSprite = -1018164873,
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32",
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10",
         npcx = 3033.23, npcy = 1369.64, npcz = 41.62, npch = 67.42,
@@ -115,7 +115,7 @@ Config.boatShops = {
         promptName = "Blackwater Boats",
         blipAllowed = true,
         blipName = "Blackwater Boats",
-        blipSprite = "blip_ambient_tugboat",-- -1018164873,
+        blipSprite = -1018164873,
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32",
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10",
         npcx = -682.36, npcy = -1242.97, npcz = 42.11, npch = 88.90,
@@ -147,7 +147,7 @@ Config.boatShops = {
         promptName = "Wapiti Boats",
         blipAllowed = true,
         blipName = "Wapiti Boats",
-        blipSprite = "blip_mp_game_race_canoe",-- 2005921736,
+        blipSprite = 2005921736,
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32",
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10",
         npcx = 614.46, npcy = 2209.5, npcz = 222.01, npch = 194.08,
@@ -179,7 +179,7 @@ Config.boatShops = {
         promptName = "Manteca Falls Boats",
         blipAllowed = true,
         blipName = "Manteca Falls Boats",
-        blipSprite = "blip_ambient_tugboat",-- -1018164873,
+        blipSprite = -1018164873,
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32",
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10",
         npcx = -2017.76, npcy = -3048.91, npcz = -12.21, npch = 21.23,
