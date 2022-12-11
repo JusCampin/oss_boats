@@ -25,7 +25,7 @@ Settings can be changed in the `config.lua` file. Here is an example of one shop
         promptName = "Lagras Boats", -- Text Below the Prompt Button
         blipAllowed = true, -- Turns Blips On / Off
         blipName = "Lagras Boats", -- Name of the Blip on the Map
-        blipSprite = "blip_mp_game_race_canoe",-- "blip_mp_game_race_canoe" / "blip_ambient_tugboat"
+        blipSprite = 2005921736, -- 2005921736 = Canoe / -1018164873 = Tugboat
         blipColorOpen = "BLIP_MODIFIER_MP_COLOR_32", -- Shop Open - Blip Colors Shown Below
         blipColorClosed = "BLIP_MODIFIER_MP_COLOR_10", -- Shop Closed - Blip Colors Shown Below
         npcx = 2123.95, npcy = -551.63, npcz = 41.53, npch = 113.62, -- Blip and NPC Positions
