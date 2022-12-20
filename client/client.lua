@@ -422,13 +422,13 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
     InMenu = true
     local elements = {}
 
-    for boat, boatData in pairs(ownedBoats) do
+    for boat, ownedData in pairs(ownedBoats) do
         elements[#elements + 1] = {
-            label = boatData.name,
+            label = ownedData.name,
             value = boat,
             desc = _U("chooseBoat"),
-            model = boatData.model,
-            location = boatData.location,
+            model = ownedData.model,
+            location = ownedData.location,
         }
     end
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
@@ -446,7 +446,7 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
         BoatName = data.current.label
         BoatModel = data.current.model
         BoatHome = data.current.location
-        if BoatModel then
+        if data.current.value then
             BoatMenu(BoatName, BoatModel, BoatHome, shopId)
         end
     end,
@@ -464,7 +464,7 @@ function BoatMenu(name, model, location, shopId)
     InMenu = true
     local currencyType = Config.boatShops[shopId].boats[model].currencyType
     local sellPrice = Config.boatShops[shopId].boats[model].sellPrice
-    local transferPrice = Config.boatShops[shopId].boats[model].transferPrice
+    local boatData = Config.boatShops[shopId].boats[model]
     TransferAllow = Config.transferAllow
     local player = PlayerPedId()
     local descSell
@@ -522,7 +522,7 @@ function BoatMenu(name, model, location, shopId)
 
         elseif data.current.value == "sell" then
 
-            TriggerServerEvent('oss_boats:SellBoat', name, model, location, currencyType, sellPrice)
+            TriggerServerEvent('oss_boats:SellBoat', name, model, location, boatData)
             menu.close()
             InMenu = false
             ClearPedTasksImmediately(player)
@@ -531,7 +531,7 @@ function BoatMenu(name, model, location, shopId)
         elseif data.current.value == "transfer" then
 
             if TransferAllow then
-                TransferBoat(name, model, location, currencyType, transferPrice, shopId)
+                TransferBoat(name, model, location, boatData, shopId)
             else
                 VORPcore.NotifyRightTip(_U("transferDisabled"),4000)
             end
@@ -546,9 +546,11 @@ function BoatMenu(name, model, location, shopId)
 end
 
 -- Menu to Choose Shop to Transfer Boat
-function TransferBoat(name, model, location, currencyType, transferPrice, shopId)
+function TransferBoat(name, model, location, boatData, shopId)
     MenuData.CloseAll()
     InMenu = true
+    local currencyType = boatData.currencyType
+    local transferPrice = boatData.transferPrice
     local descTransfer
 
     if currencyType == "cash" then
@@ -585,7 +587,7 @@ function TransferBoat(name, model, location, currencyType, transferPrice, shopId
             local shopName = Config.boatShops[transferLocation].shopName
             if transferLocation ~= location then
                 if not next(Config.boatShops[transferLocation].allowedJobs) then
-                    TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, currencyType, transferPrice, shopName)
+                    TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, boatData, shopName)
                     menu.close()
                     InMenu = false
                     ClearPedTasksImmediately(PlayerPedId())
@@ -596,7 +598,7 @@ function TransferBoat(name, model, location, currencyType, transferPrice, shopId
                     if PlayerJob then
                         if CheckJob(Config.boatShops[transferLocation].allowedJobs, PlayerJob) then
                             if tonumber(Config.boatShops[transferLocation].jobGrade) <= tonumber(JobGrade) then
-                                TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, currencyType, transferPrice, shopName)
+                                TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, boatData, shopName)
                                 menu.close()
                                 InMenu = false
                                 ClearPedTasksImmediately(PlayerPedId())

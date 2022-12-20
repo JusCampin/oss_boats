@@ -62,20 +62,22 @@ end)
 
 -- Sell Owned Boats
 RegisterServerEvent('oss_boats:SellBoat')
-AddEventHandler('oss_boats:SellBoat', function(name, model, location, currencyType, sellPrice)
+AddEventHandler('oss_boats:SellBoat', function(name, model, location, boatData)
     local _source = source
     local Character = VORPcore.getUser(_source).getUsedCharacter
     local identifier = Character.identifier
     local charid = Character.charIdentifier
+    local sellPrice = boatData.sellPrice
+    local currencyType = boatData.currencyType
 
-    if currencyType == "cash" then        
+    if currencyType == "cash" then
         Character.addCurrency(0, sellPrice)
         VORPcore.NotifyRightTip(_source, _U("sold") .. name .. _U("frcash") .. sellPrice, 4000)
 
         local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model }
         exports.ghmattimysql:execute("DELETE FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
 
-    elseif currencyType == "gold" then        
+    elseif currencyType == "gold" then
         Character.addCurrency(1, sellPrice)
         VORPcore.NotifyRightTip(_source, _U("sold") .. name .. _U("fr") .. sellPrice .. _U("ofgold"), 4000)
 
@@ -86,15 +88,16 @@ end)
 
 -- Transfer Owned Boats Between Shops
 RegisterServerEvent('oss_boats:TransferBoat')
-AddEventHandler('oss_boats:TransferBoat', function(name, model, location, transferLocation, action, currencyType, transferPrice, shopName)
+AddEventHandler('oss_boats:TransferBoat', function(name, model, location, transferLocation, transferMode, boatData, shopName)
     local _source = source
     local Character = VORPcore.getUser(_source).getUsedCharacter
     local identifier = Character.identifier
     local charid = Character.charIdentifier
-    local money = Character.money
-    local gold = Character.gold
-    if action == "menuTransfer" then
+    if transferMode == "menuTransfer" then
+        local currencyType = boatData.currencyType
+        local transferPrice = boatData.transferPrice
         if currencyType == "cash" then
+            local money = Character.money
             if money >= transferPrice then
                 Character.removeCurrency(0, transferPrice)
                 VORPcore.NotifyRightTip(_source, _U("transferred") .. name .. _U("to") .. shopName .. _U("frcash") .. transferPrice, 4000)
@@ -106,6 +109,7 @@ AddEventHandler('oss_boats:TransferBoat', function(name, model, location, transf
             end
 
         elseif currencyType == "gold" then
+            local gold = Character.gold
             if gold >= transferPrice then
                 Character.removeCurrency(1, transferPrice)
                 VORPcore.NotifyRightTip(_source, _U("transferred") .. name .. _U("to") .. shopName .. _U("fr") .. transferPrice .. _U("ofgold"), 4000)
@@ -117,7 +121,7 @@ AddEventHandler('oss_boats:TransferBoat', function(name, model, location, transf
             end
         end
 
-    elseif action == "driveTransfer" then
+    elseif transferMode == "driveTransfer" then
         local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model, ['transferLocation'] = transferLocation }
         exports.ghmattimysql:execute("UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
     end
