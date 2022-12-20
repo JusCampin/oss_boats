@@ -397,13 +397,10 @@ function BuyMenu(shopId)
             _G[data.trigger](shopId)
         end
         if data.current.value then
-            local name = data.current.info.boatName
-            local model = data.current.info.boatModel
+            local buyData = data.current.info
             local location = Config.boatShops[shopId].location
-            local currencyType = data.current.info.currencyType
-            local buyPrice = data.current.info.buyPrice
 
-            TriggerServerEvent('oss_boats:BuyBoat', name, model, location, currencyType, buyPrice, shopId)
+            TriggerServerEvent('oss_boats:BuyBoat', buyData, location)
             menu.close()
             InMenu = false
             ClearPedTasksImmediately(PlayerPedId())

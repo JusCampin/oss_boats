@@ -5,15 +5,18 @@ end)
 
 -- Buy New Boats
 RegisterServerEvent('oss_boats:BuyBoat')
-AddEventHandler('oss_boats:BuyBoat', function(name, model, location, currencyType, buyPrice)
+AddEventHandler('oss_boats:BuyBoat', function(buyData, location)
     local _source = source
     local Character = VORPcore.getUser(_source).getUsedCharacter
     local identifier = Character.identifier
     local charid = Character.charIdentifier
-    local money = Character.money
-    local gold = Character.gold
+    local name = buyData.boatName
+    local model = buyData.boatModel
+    local currencyType = buyData.currencyType
+    local buyPrice = buyData.buyPrice
 
     if currencyType == "cash" then
+        local money = Character.money
         if money >= buyPrice then
             Character.removeCurrency(0, buyPrice)
             VORPcore.NotifyRightTip(_source, _U("bought") .. name .. _U("frcash") .. buyPrice, 4000)
@@ -25,6 +28,7 @@ AddEventHandler('oss_boats:BuyBoat', function(name, model, location, currencyTyp
         end
 
     elseif currencyType == "gold" then
+        local gold = Character.gold
         if gold >= buyPrice then
             Character.removeCurrency(1, buyPrice)
             VORPcore.NotifyRightTip(_source, _U("bought") .. name .. _U("fr") .. buyPrice .. _U("ofgold"), 4000)
