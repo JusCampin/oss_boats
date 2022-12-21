@@ -62,11 +62,14 @@ end)
 
 -- Sell Owned Boats
 RegisterServerEvent('oss_boats:SellBoat')
-AddEventHandler('oss_boats:SellBoat', function(name, model, location, boatData)
+AddEventHandler('oss_boats:SellBoat', function(ownedData, boatData)
     local _source = source
     local Character = VORPcore.getUser(_source).getUsedCharacter
     local identifier = Character.identifier
     local charid = Character.charIdentifier
+    local name = ownedData.name
+    local model = ownedData.model
+    local location = ownedData.location
     local sellPrice = boatData.sellPrice
     local currencyType = boatData.currencyType
 
@@ -88,11 +91,14 @@ end)
 
 -- Transfer Owned Boats Between Shops
 RegisterServerEvent('oss_boats:TransferBoat')
-AddEventHandler('oss_boats:TransferBoat', function(name, model, location, transferLocation, transferMode, boatData, shopName)
+AddEventHandler('oss_boats:TransferBoat', function(ownedData, transferLocation, transferMode, boatData, shopName)
     local _source = source
     local Character = VORPcore.getUser(_source).getUsedCharacter
     local identifier = Character.identifier
     local charid = Character.charIdentifier
+    local name = ownedData.name
+    local model = ownedData.model
+    local location = ownedData.location
     if transferMode == "menuTransfer" then
         local currencyType = boatData.currencyType
         local transferPrice = boatData.transferPrice

@@ -72,7 +72,8 @@ Citizen.CreateThread(function()
                             local shopClosed = CreateVarString(10, 'LITERAL_STRING', _U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"))
                             PromptSetActiveGroupThisFrame(ShopPrompt2, shopClosed)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseShops) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                 Wait(100)
                                 VORPcore.NotifyRightTip(_U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"), 3000)
                             end
@@ -81,7 +82,8 @@ Citizen.CreateThread(function()
                             local returnClosed = CreateVarString(10, 'LITERAL_STRING', _U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"))
                             PromptSetActiveGroupThisFrame(ReturnPrompt2, returnClosed)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseReturn) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                 Wait(100)
                                 VORPcore.NotifyRightTip(_U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"), 3000)
                             end
@@ -91,7 +93,7 @@ Citizen.CreateThread(function()
                             AddBlip(shopId)
                         end
                         if Config.boatShops[shopId].BlipHandle then
-                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen))
+                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BLIP_ADD_MODIFIER
                         end
                         if not shopConfig.NPC and shopConfig.npcAllowed then
                             SpawnNPC(shopId)
@@ -108,7 +110,8 @@ Citizen.CreateThread(function()
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                     MainMenu(shopId)
                                     DisplayRadar(false)
                                     TaskStandStill(player, -1)
@@ -118,7 +121,8 @@ Citizen.CreateThread(function()
                                 local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                     local currentLocation = shopConfig.location
                                     if currentLocation == BoatHome then
                                         ReturnBoat(shopId)
@@ -147,7 +151,8 @@ Citizen.CreateThread(function()
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                     TriggerServerEvent("oss_boats:getPlayerJob")
                                     Wait(200)
                                     if PlayerJob then
@@ -171,7 +176,8 @@ Citizen.CreateThread(function()
                                 local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                     TriggerServerEvent("oss_boats:getPlayerJob")
                                     Wait(200)
                                     if PlayerJob then
@@ -209,7 +215,7 @@ Citizen.CreateThread(function()
                         AddBlip(shopId)
                     end
                     if Config.boatShops[shopId].BlipHandle then
-                        Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen))
+                        Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BLIP_ADD_MODIFIER
                     end
                     if not shopConfig.NPC and shopConfig.npcAllowed then
                         SpawnNPC(shopId)
@@ -226,7 +232,8 @@ Citizen.CreateThread(function()
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                 MainMenu(shopId)
                                 DisplayRadar(false)
                                 TaskStandStill(player, -1)
@@ -236,7 +243,8 @@ Citizen.CreateThread(function()
                             local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                 local currentLocation = shopConfig.location
                                 if currentLocation == BoatHome then
                                     ReturnBoat(shopId)
@@ -265,7 +273,8 @@ Citizen.CreateThread(function()
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+
                                 TriggerServerEvent("oss_boats:getPlayerJob")
                                 Wait(200)
                                 if PlayerJob then
@@ -289,7 +298,7 @@ Citizen.CreateThread(function()
                             local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
                                 TriggerServerEvent("oss_boats:getPlayerJob")
                                 Wait(200)
                                 if PlayerJob then
@@ -425,13 +434,12 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
     InMenu = true
     local elements = {}
 
-    for boat, ownedData in pairs(ownedBoats) do
+    for boat, ownedBoatData in pairs(ownedBoats) do
         elements[#elements + 1] = {
-            label = ownedData.name,
+            label = ownedBoatData.name,
             value = boat,
             desc = _U("chooseBoat"),
-            model = ownedData.model,
-            location = ownedData.location,
+            info = ownedBoatData,
         }
     end
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi',
@@ -446,11 +454,9 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
         if data.current == "backup" then
             _G[data.trigger](shopId)
         end
-        BoatName = data.current.label
-        BoatModel = data.current.model
-        BoatHome = data.current.location
+        local ownedData = data.current.info
         if data.current.value then
-            BoatMenu(BoatName, BoatModel, BoatHome, shopId)
+            BoatMenu(ownedData, shopId)
         end
     end,
     function(data, menu)
@@ -462,26 +468,29 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
 end)
 
 -- Menu to Launch, Sell or Transfer Owned Boats
-function BoatMenu(name, model, location, shopId)
+function BoatMenu(ownedData, shopId)
     MenuData.CloseAll()
     InMenu = true
-    local currencyType = Config.boatShops[shopId].boats[model].currencyType
-    local sellPrice = Config.boatShops[shopId].boats[model].sellPrice
-    local boatData = Config.boatShops[shopId].boats[model]
+    BoatName = ownedData.name
+    BoatModel = ownedData.model
+    BoatHome = ownedData.location
+    local boatData = Config.boatShops[shopId].boats[BoatModel]
+    local currencyType = boatData.currencyType
+    local sellPrice = boatData.sellPrice
     TransferAllow = Config.transferAllow
     local player = PlayerPedId()
     local descSell
     local descTransfer
 
     if currencyType == "cash" then
-        descSell = _U("sell") .. name .. _U("frcash2") .. sellPrice
+        descSell = _U("sell") .. BoatName .. _U("frcash2") .. sellPrice
 
     elseif currencyType == "gold" then
-        descSell = _U("sell") .. name .. _U("fr2") .. sellPrice .. _U("ofgold2")
+        descSell = _U("sell") .. BoatName .. _U("fr2") .. sellPrice .. _U("ofgold2")
     end
 
     if TransferAllow then
-        descTransfer = _U("transfer") .. name .. _U("transferShop")
+        descTransfer = _U("transfer") .. BoatName .. _U("transferShop")
     else
         descTransfer = _U("transferDisabledMenu")
     end
@@ -490,7 +499,7 @@ function BoatMenu(name, model, location, shopId)
         {
             label = _U("launch"),
             value = "launch",
-            desc = _U("launchBoat") .. name
+            desc = _U("launchBoat") .. BoatName
         },
         {
             label = _U("sellBoat"),
@@ -506,7 +515,7 @@ function BoatMenu(name, model, location, shopId)
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi' .. shopId,
     {
         title = Config.boatShops[shopId].shopName,
-        subtext = name,
+        subtext = BoatName,
         align = "top-left",
         elements = elements,
         lastmenu = 'MainMenu',
@@ -521,11 +530,11 @@ function BoatMenu(name, model, location, shopId)
             InMenu = false
             ClearPedTasksImmediately(player)
             DisplayRadar(true)
-            SpawnBoat(name, model, location)
+            SpawnBoat(ownedData)
 
         elseif data.current.value == "sell" then
 
-            TriggerServerEvent('oss_boats:SellBoat', name, model, location, boatData)
+            TriggerServerEvent('oss_boats:SellBoat', ownedData, boatData)
             menu.close()
             InMenu = false
             ClearPedTasksImmediately(player)
@@ -534,7 +543,7 @@ function BoatMenu(name, model, location, shopId)
         elseif data.current.value == "transfer" then
 
             if TransferAllow then
-                TransferBoat(name, model, location, boatData, shopId)
+                TransferBoat(ownedData, boatData, shopId)
             else
                 VORPcore.NotifyRightTip(_U("transferDisabled"),4000)
             end
@@ -549,9 +558,12 @@ function BoatMenu(name, model, location, shopId)
 end
 
 -- Menu to Choose Shop to Transfer Boat
-function TransferBoat(name, model, location, boatData, shopId)
+function TransferBoat(ownedData, boatData, shopId)
     MenuData.CloseAll()
     InMenu = true
+    local name = ownedData.name
+    local model = ownedData.model
+    local location = ownedData.location
     local currencyType = boatData.currencyType
     local transferPrice = boatData.transferPrice
     local descTransfer
@@ -590,7 +602,7 @@ function TransferBoat(name, model, location, boatData, shopId)
             local shopName = Config.boatShops[transferLocation].shopName
             if transferLocation ~= location then
                 if not next(Config.boatShops[transferLocation].allowedJobs) then
-                    TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, boatData, shopName)
+                    TriggerServerEvent("oss_boats:TransferBoat", ownedData, transferLocation, menuTransfer, boatData, shopName)
                     menu.close()
                     InMenu = false
                     ClearPedTasksImmediately(PlayerPedId())
@@ -601,7 +613,7 @@ function TransferBoat(name, model, location, boatData, shopId)
                     if PlayerJob then
                         if CheckJob(Config.boatShops[transferLocation].allowedJobs, PlayerJob) then
                             if tonumber(Config.boatShops[transferLocation].jobGrade) <= tonumber(JobGrade) then
-                                TriggerServerEvent("oss_boats:TransferBoat", name, model, location, transferLocation, menuTransfer, boatData, shopName)
+                                TriggerServerEvent("oss_boats:TransferBoat", ownedData, transferLocation, menuTransfer, boatData, shopName)
                                 menu.close()
                                 InMenu = false
                                 ClearPedTasksImmediately(PlayerPedId())
@@ -699,10 +711,13 @@ function BoatOptionsMenu()
 end
 
 -- Spawn New or Owned Boat
-function SpawnBoat(name, model, location)
+function SpawnBoat(ownedData)
     if MyBoat then
         DeleteEntity(MyBoat)
     end
+    local name = ownedData.name
+    local model = ownedData.model
+    local location = ownedData.location
     RequestModel(model)
     while not HasModelLoaded(model) do
         Wait(500)
