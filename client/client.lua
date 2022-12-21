@@ -3,6 +3,7 @@ TriggerEvent("getCore", function(core)
     VORPcore = core
 end)
 
+-- Prompts (start)
 local OpenShops
 local CloseShops
 local OpenReturn
@@ -11,6 +12,8 @@ local ShopPrompt1 = GetRandomIntInRange(0, 0xffffff)
 local ShopPrompt2 = GetRandomIntInRange(0, 0xffffff)
 local ReturnPrompt1 = GetRandomIntInRange(0, 0xffffff)
 local ReturnPrompt2 = GetRandomIntInRange(0, 0xffffff)
+--Prompts (end)
+
 local PlayerJob
 local JobName
 local JobGrade
@@ -731,7 +734,7 @@ function ReturnBoat(shopId)
     Wait(500)
     DoScreenFadeIn(500)
     IsBoating = false
-    Wait(15000)
+    Wait(500)
     DeleteEntity(MyBoat)
 end
 
@@ -869,6 +872,10 @@ AddEventHandler('onResourceStop', function(resourceName)
         MenuData.CloseAll()
     end
 
+    if MyBoat then
+        DeleteEntity(MyBoat)
+    end
+
     for _, shopConfig in pairs(Config.boatShops) do
         if shopConfig.BlipHandle then
             RemoveBlip(shopConfig.BlipHandle)
@@ -880,4 +887,3 @@ AddEventHandler('onResourceStop', function(resourceName)
         end
     end
 end)
-
