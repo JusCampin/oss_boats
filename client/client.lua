@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
                             AddBlip(shopId)
                         end
                         if Config.boatShops[shopId].BlipHandle then
-                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorClosed))
+                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorClosed)) -- BLIP_ADD_MODIFIER
                         end
                         if shopConfig.NPC then
                             DeleteEntity(shopConfig.NPC)
@@ -67,7 +67,7 @@ Citizen.CreateThread(function()
                         local distanceShop = #(coordsDist - coordsShop)
                         local distanceBoat = #(coordsDist - coordsBoat)
 
-                        if (distanceShop <= shopConfig.distanceShop) then
+                        if (distanceShop <= shopConfig.distanceShop) and not IsPedInAnyBoat(player) then
                             sleep = false
                             local shopClosed = CreateVarString(10, 'LITERAL_STRING', _U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"))
                             PromptSetActiveGroupThisFrame(ShopPrompt2, shopClosed)
@@ -103,7 +103,7 @@ Citizen.CreateThread(function()
                             local distanceShop = #(coordsDist - coordsShop)
                             local distanceBoat = #(coordsDist - coordsBoat)
 
-                            if (distanceShop <= shopConfig.distanceShop) then
+                            if (distanceShop <= shopConfig.distanceShop) and not IsPedInAnyBoat(player) then
                                 sleep = false
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
@@ -142,7 +142,7 @@ Citizen.CreateThread(function()
                             local distanceShop = #(coordsDist - coordsShop)
                             local distanceBoat = #(coordsDist - coordsBoat)
 
-                            if (distanceShop <= shopConfig.distanceShop) then
+                            if (distanceShop <= shopConfig.distanceShop) and not IsPedInAnyBoat(player) then
                                 sleep = false
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
@@ -221,7 +221,7 @@ Citizen.CreateThread(function()
                         local distanceShop = #(coordsDist - coordsShop)
                         local distanceBoat = #(coordsDist - coordsBoat)
 
-                        if (distanceShop <= shopConfig.distanceShop) then
+                        if (distanceShop <= shopConfig.distanceShop) and not IsPedInAnyBoat(player) then
                             sleep = false
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
@@ -260,7 +260,7 @@ Citizen.CreateThread(function()
                         local distanceShop = #(coordsDist - coordsShop)
                         local distanceBoat = #(coordsDist - coordsBoat)
 
-                        if (distanceShop <= shopConfig.distanceShop) then
+                        if (distanceShop <= shopConfig.distanceShop) and not IsPedInAnyBoat(player) then
                             sleep = false
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
