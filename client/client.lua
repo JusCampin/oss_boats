@@ -53,7 +53,7 @@ Citizen.CreateThread(function()
                             AddBlip(shopId)
                         end
                         if Config.boatShops[shopId].BlipHandle then
-                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorClosed)) -- BLIP_ADD_MODIFIER
+                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorClosed)) -- BlipAddModifier
                         end
                         if shopConfig.NPC then
                             DeleteEntity(shopConfig.NPC)
@@ -72,7 +72,7 @@ Citizen.CreateThread(function()
                             local shopClosed = CreateVarString(10, 'LITERAL_STRING', _U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"))
                             PromptSetActiveGroupThisFrame(ShopPrompt2, shopClosed)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseShops) then -- UiPromptHasStandardModeCompleted
 
                                 Wait(100)
                                 VORPcore.NotifyRightTip(_U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"), 3000)
@@ -82,7 +82,7 @@ Citizen.CreateThread(function()
                             local returnClosed = CreateVarString(10, 'LITERAL_STRING', _U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"))
                             PromptSetActiveGroupThisFrame(ReturnPrompt2, returnClosed)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, CloseReturn) then -- UiPromptHasStandardModeCompleted
 
                                 Wait(100)
                                 VORPcore.NotifyRightTip(_U("closed") .. shopConfig.shopOpen .. _U("am") .. shopConfig.shopClose .. _U("pm"), 3000)
@@ -93,7 +93,7 @@ Citizen.CreateThread(function()
                             AddBlip(shopId)
                         end
                         if Config.boatShops[shopId].BlipHandle then
-                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BLIP_ADD_MODIFIER
+                            Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BlipAddModifier
                         end
                         if not shopConfig.NPC and shopConfig.npcAllowed then
                             SpawnNPC(shopId)
@@ -110,7 +110,7 @@ Citizen.CreateThread(function()
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- UiPromptHasStandardModeCompleted
 
                                     MainMenu(shopId)
                                     DisplayRadar(false)
@@ -121,7 +121,7 @@ Citizen.CreateThread(function()
                                 local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
 
                                     local currentLocation = shopConfig.location
                                     if currentLocation == BoatHome then
@@ -151,7 +151,7 @@ Citizen.CreateThread(function()
                                 local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- UiPromptHasStandardModeCompleted
 
                                     TriggerServerEvent("oss_boats:getPlayerJob")
                                     Wait(200)
@@ -176,7 +176,7 @@ Citizen.CreateThread(function()
                                 local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                                 PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                                if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
 
                                     TriggerServerEvent("oss_boats:getPlayerJob")
                                     Wait(200)
@@ -215,7 +215,7 @@ Citizen.CreateThread(function()
                         AddBlip(shopId)
                     end
                     if Config.boatShops[shopId].BlipHandle then
-                        Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BLIP_ADD_MODIFIER
+                        Citizen.InvokeNative(0x662D364ABF16DE2F, Config.boatShops[shopId].BlipHandle, GetHashKey(shopConfig.blipColorOpen)) -- BlipAddModifier
                     end
                     if not shopConfig.NPC and shopConfig.npcAllowed then
                         SpawnNPC(shopId)
@@ -232,7 +232,7 @@ Citizen.CreateThread(function()
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- UiPromptHasStandardModeCompleted
 
                                 MainMenu(shopId)
                                 DisplayRadar(false)
@@ -243,7 +243,7 @@ Citizen.CreateThread(function()
                             local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
 
                                 local currentLocation = shopConfig.location
                                 if currentLocation == BoatHome then
@@ -273,7 +273,7 @@ Citizen.CreateThread(function()
                             local shopOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ShopPrompt1, shopOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenShops) then -- UiPromptHasStandardModeCompleted
 
                                 TriggerServerEvent("oss_boats:getPlayerJob")
                                 Wait(200)
@@ -298,7 +298,7 @@ Citizen.CreateThread(function()
                             local returnOpen = CreateVarString(10, 'LITERAL_STRING', shopConfig.promptName)
                             PromptSetActiveGroupThisFrame(ReturnPrompt1, returnOpen)
 
-                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- _UI_PROMPT_HAS_STANDARD_MODE_COMPLETED
+                            if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
                                 TriggerServerEvent("oss_boats:getPlayerJob")
                                 Wait(200)
                                 if PlayerJob then
@@ -715,25 +715,27 @@ function SpawnBoat(ownedData)
     if MyBoat then
         DeleteEntity(MyBoat)
     end
+    local player = PlayerPedId()
     local name = ownedData.name
     local model = ownedData.model
     local location = ownedData.location
+    local boatConfig = Config.boatShops[location]
     RequestModel(model)
     while not HasModelLoaded(model) do
         Wait(500)
     end
-    MyBoat = CreateVehicle(model, Config.boatShops[location].boatx, Config.boatShops[location].boaty, Config.boatShops[location].boatz, Config.boatShops[location].boath, true, false)
+    MyBoat = CreateVehicle(model, boatConfig.boatx, boatConfig.boaty, boatConfig.boatz, boatConfig.boath, true, false)
     SetVehicleOnGroundProperly(MyBoat)
     SetModelAsNoLongerNeeded(model)
     SetEntityInvincible(MyBoat, 1)
     DoScreenFadeOut(500)
     Wait(500)
-    SetPedIntoVehicle(PlayerPedId(), MyBoat, -1)
+    SetPedIntoVehicle(player, MyBoat, -1)
     Wait(500)
     DoScreenFadeIn(500)
-    local boatBlip = Citizen.InvokeNative(0x23F74C2FDA6E7C61, -1749618580, MyBoat)
+    local boatBlip = Citizen.InvokeNative(0x23F74C2FDA6E7C61, -1749618580, MyBoat) -- BlipAddForEntity
     SetBlipSprite(boatBlip, GetHashKey("blip_canoe"), true)
-    Citizen.InvokeNative(0x9CB1A1623062F402, boatBlip, name)
+    Citizen.InvokeNative(0x9CB1A1623062F402, boatBlip, name) -- SetBlipName
     IsBoating = true
     VORPcore.NotifyRightTip(_U("boatMenuTip"),4000)
 end
@@ -741,7 +743,8 @@ end
 -- Return Boat Using Prompt at Shop Location
 function ReturnBoat(shopId)
     local player = PlayerPedId()
-    local coords = vector3(Config.boatShops[shopId].playerx, Config.boatShops[shopId].playery, Config.boatShops[shopId].playerz)
+    local shopConfig = Config.boatShops[shopId]
+    local coords = vector3(shopConfig.playerx, shopConfig.playery, shopConfig.playerz)
     TaskLeaveVehicle(player, MyBoat, 0)
     DoScreenFadeOut(500)
     Wait(500)
@@ -749,7 +752,6 @@ function ReturnBoat(shopId)
     Wait(500)
     DoScreenFadeIn(500)
     IsBoating = false
-    Wait(500)
     DeleteEntity(MyBoat)
 end
 
@@ -775,7 +777,7 @@ function ShopOpen()
     PromptSetVisible(OpenShops, 1)
     PromptSetStandardMode(OpenShops, 1)
     PromptSetGroup(OpenShops, ShopPrompt1)
-    Citizen.InvokeNative(0xC5F428EE08FA7F2C, OpenShops, true)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, OpenShops, true) -- UiPromptSetUrgentPulsingEnabled
     PromptRegisterEnd(OpenShops)
 end
 
@@ -789,7 +791,7 @@ function ShopClosed()
     PromptSetVisible(CloseShops, 1)
     PromptSetStandardMode(CloseShops, 1)
     PromptSetGroup(CloseShops, ShopPrompt2)
-    Citizen.InvokeNative(0xC5F428EE08FA7F2C, CloseShops, true)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, CloseShops, true) -- UiPromptSetUrgentPulsingEnabled
     PromptRegisterEnd(CloseShops)
 end
 
@@ -803,7 +805,7 @@ function ReturnOpen()
     PromptSetVisible(OpenReturn, 1)
     PromptSetStandardMode(OpenReturn, 1)
     PromptSetGroup(OpenReturn, ReturnPrompt1)
-    Citizen.InvokeNative(0xC5F428EE08FA7F2C, OpenReturn, true)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, OpenReturn, true) -- UiPromptSetUrgentPulsingEnabled
     PromptRegisterEnd(OpenReturn)
 end
 
@@ -817,7 +819,7 @@ function ReturnClosed()
     PromptSetVisible(CloseReturn, 1)
     PromptSetStandardMode(CloseReturn, 1)
     PromptSetGroup(CloseReturn, ReturnPrompt2)
-    Citizen.InvokeNative(0xC5F428EE08FA7F2C, CloseReturn, true)
+    Citizen.InvokeNative(0xC5F428EE08FA7F2C, CloseReturn, true) -- UiPromptSetUrgentPulsingEnabled
     PromptRegisterEnd(CloseReturn)
 end
 
@@ -828,7 +830,7 @@ function AddBlip(shopId)
         shopConfig.BlipHandle = N_0x554d9d53f696d002(1664425300, shopConfig.npcx, shopConfig.npcy, shopConfig.npcz) -- BlipAddForCoords
         SetBlipSprite(shopConfig.BlipHandle, shopConfig.blipSprite, 1)
         SetBlipScale(shopConfig.BlipHandle, 0.2)
-        Citizen.InvokeNative(0x9CB1A1623062F402, shopConfig.BlipHandle, shopConfig.blipName) -- SetBlipNameFromPlayerString
+        Citizen.InvokeNative(0x9CB1A1623062F402, shopConfig.BlipHandle, shopConfig.blipName) -- SetBlipName
     end
 end
 
