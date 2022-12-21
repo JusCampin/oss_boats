@@ -26,7 +26,7 @@ Config.boatShops = {
         boatx = 2122.8, boaty = -544.76, boatz = 40.55, boath = 46.69, -- Boat Spawn and Return Positions
         playerx = 2121.31, playery = -552.65, playerz = 42.7, playerh = 316.34, -- Player Return Teleport Position
         distanceShop = 2.0, -- Distance from NPC to Get Menu Prompt
-        distanceReturn = 4.0, -- Distance from Shop to Get Return Prompt
+        distanceReturn = 6.0, -- Distance from Shop to Get Return Prompt
         npcAllowed = true, -- Turns NPCs On / Off
         npcModel = "A_M_M_UniBoatCrew_01", -- Sets Model for NPCs
         allowedJobs = {}, -- Empty, Everyone Can Use / Insert Job to limit access - ex. "police"
@@ -58,7 +58,7 @@ Config.boatShops = {
         boatx = 2947.50, boaty = -1257.21, boatz = 41.58, boath = 274.14,
         playerx = 2946.99, playery = -1250.47, playerz = 42.41, playerh = 270.52,
         distanceShop = 2.0,
-        distanceReturn = 4.0,
+        distanceReturn = 6.0,
         npcAllowed = true,
         npcModel = "A_M_M_UniBoatCrew_01",
         allowedJobs = {},
@@ -90,7 +90,7 @@ Config.boatShops = {
         boatx = 3036.05, boaty = 1374.40, boatz = 40.27, boath = 251.0,
         playerx = 3030.44, playery = 1370.84, playerz = 42.63, playerh = 244.6,
         distanceShop = 2.0,
-        distanceReturn = 4.0,
+        distanceReturn = 6.0,
         npcAllowed = true,
         npcModel = "A_M_M_UniBoatCrew_01",
         allowedJobs = {},
@@ -122,7 +122,7 @@ Config.boatShops = {
         boatx = -682.22, boaty = -1252.50, boatz = 40.27, boath = 277.0,
         playerx = -685.16, playery = -1242.98, playerz = 43.11, playerh = 266.15,
         distanceShop = 2.0,
-        distanceReturn = 4.0,
+        distanceReturn = 6.0,
         npcAllowed = true,
         npcModel = "A_M_M_UniBoatCrew_01",
         allowedJobs = {},
@@ -154,7 +154,7 @@ Config.boatShops = {
         boatx = 635.8, boaty = 2212.13, boatz = 220.78, boath = 212.13,
         playerx = 614.14, playery = 2207.46, playerz = 223.06, playerh = 344.27,
         distanceShop = 2.0,
-        distanceReturn = 4.0,
+        distanceReturn = 6.0,
         npcAllowed = true,
         npcModel = "A_M_M_UniBoatCrew_01",
         allowedJobs = {},
@@ -186,7 +186,7 @@ Config.boatShops = {
         boatx = -2025.37, boaty = -3048.24, boatz = -12.69, boath = 197.53,
         playerx = -2018.88, playery = -3046.35, playerz = -11.21, playerh = 201.5,
         distanceShop = 2.0,
-        distanceReturn = 4.0,
+        distanceReturn = 6.0,
         npcAllowed = true,
         npcModel = "A_M_M_UniBoatCrew_01",
         allowedJobs = {},
