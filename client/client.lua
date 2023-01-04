@@ -19,10 +19,9 @@ local JobName
 local JobGrade
 local InMenu = false
 local IsBoating = false
+local isAnchored
+local OwnedData = {}
 local MyBoat
-local BoatHome
-local BoatName
-local BoatModel
 local TransferAllow
 MenuData = {}
 
@@ -124,17 +123,19 @@ Citizen.CreateThread(function()
                                 if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
 
                                     local currentLocation = shopConfig.location
-                                    if currentLocation == BoatHome then
+                                    local boatHome = OwnedData.location
+                                    local boatName = OwnedData.name
+                                    if currentLocation == boatHome then
                                         ReturnBoat(shopId)
                                     else
                                         if TransferAllow then
                                             local driveTransfer = "driveTransfer"
-                                            TriggerServerEvent("oss_boats:TransferBoat", BoatName, BoatModel, BoatHome, currentLocation, driveTransfer)
+                                            TriggerServerEvent("oss_boats:TransferBoat", OwnedData, currentLocation, driveTransfer)
                                             ReturnBoat(shopId)
-                                            VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("available"),5000)
+                                            VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("available"),5000)
                                         else
                                             ReturnBoat(shopId)
-                                            VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("returned") .. BoatHome,5000)
+                                            VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("returned") .. boatHome,5000)
                                         end
                                     end
                                 end
@@ -184,17 +185,19 @@ Citizen.CreateThread(function()
                                         if CheckJob(shopConfig.allowedJobs, PlayerJob) then
                                             if tonumber(shopConfig.jobGrade) <= tonumber(JobGrade) then
                                                 local currentLocation = shopConfig.location
-                                                if currentLocation == BoatHome then
+                                                local boatHome = OwnedData.location
+                                                local boatName = OwnedData.name
+                                                if currentLocation == boatHome then
                                                     ReturnBoat(shopId)
                                                 else
                                                     if TransferAllow then
                                                         local driveTransfer = "driveTransfer"
-                                                        TriggerServerEvent("oss_boats:TransferBoat", BoatName, BoatModel, BoatHome, currentLocation, driveTransfer)
+                                                        TriggerServerEvent("oss_boats:TransferBoat", OwnedData, currentLocation, driveTransfer)
                                                         ReturnBoat(shopId)
-                                                        VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("available"),5000)
+                                                        VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("available"),5000)
                                                     else
                                                         ReturnBoat(shopId)
-                                                        VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("returned") .. BoatHome,5000)
+                                                        VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("returned") .. boatHome,5000)
                                                     end
                                                 end
                                             else
@@ -246,17 +249,19 @@ Citizen.CreateThread(function()
                             if Citizen.InvokeNative(0xC92AC953F0A982AE, OpenReturn) then -- UiPromptHasStandardModeCompleted
 
                                 local currentLocation = shopConfig.location
-                                if currentLocation == BoatHome then
+                                local boatHome = OwnedData.location
+                                local boatName = OwnedData.name
+                                if currentLocation == boatHome then
                                     ReturnBoat(shopId)
                                 else
                                     if TransferAllow then
                                         local driveTransfer = "driveTransfer"
-                                        TriggerServerEvent("oss_boats:TransferBoat", BoatName, BoatModel, BoatHome, currentLocation, driveTransfer)
+                                        TriggerServerEvent("oss_boats:TransferBoat", OwnedData, currentLocation, driveTransfer)
                                         ReturnBoat(shopId)
-                                        VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("available"),5000)
+                                        VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("available"),5000)
                                     else
                                         ReturnBoat(shopId)
-                                        VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("returned") .. BoatHome,5000)
+                                        VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("returned") .. boatHome,5000)
                                     end
                                 end
                             end
@@ -305,17 +310,19 @@ Citizen.CreateThread(function()
                                     if CheckJob(shopConfig.allowedJobs, PlayerJob) then
                                         if tonumber(shopConfig.jobGrade) <= tonumber(JobGrade) then
                                             local currentLocation = shopConfig.location
-                                            if currentLocation == BoatHome then
+                                            local boatHome = OwnedData.location
+                                            local boatName = OwnedData.name
+                                            if currentLocation == boatHome then
                                                 ReturnBoat(shopId)
                                             else
                                                 if TransferAllow then
                                                     local driveTransfer = "driveTransfer"
-                                                    TriggerServerEvent("oss_boats:TransferBoat", BoatName, BoatModel, BoatHome, currentLocation, driveTransfer)
+                                                    TriggerServerEvent("oss_boats:TransferBoat", OwnedData, currentLocation, driveTransfer)
                                                     ReturnBoat(shopId)
-                                                    VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("available"),5000)
+                                                    VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("available"),5000)
                                                 else
                                                     ReturnBoat(shopId)
-                                                    VORPcore.NotifyRightTip(_U("your") .. BoatName .. _U("returned") .. BoatHome,5000)
+                                                    VORPcore.NotifyRightTip(_U("your") .. boatName .. _U("returned") .. boatHome,5000)
                                                 end
                                             end
                                         else
@@ -454,9 +461,9 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
         if data.current == "backup" then
             _G[data.trigger](shopId)
         end
-        local ownedData = data.current.info
+        OwnedData = data.current.info
         if data.current.value then
-            BoatMenu(ownedData, shopId)
+            BoatMenu(shopId)
         end
     end,
     function(data, menu)
@@ -468,13 +475,12 @@ AddEventHandler("oss_boats:OwnedBoatsMenu", function(ownedBoats, shopId)
 end)
 
 -- Menu to Launch, Sell or Transfer Owned Boats
-function BoatMenu(ownedData, shopId)
+function BoatMenu(shopId)
     MenuData.CloseAll()
     InMenu = true
-    BoatName = ownedData.name
-    BoatModel = ownedData.model
-    BoatHome = ownedData.location
-    local boatData = Config.boatShops[shopId].boats[BoatModel]
+    local boatName = OwnedData.name
+    local boatModel = OwnedData.model
+    local boatData = Config.boatShops[shopId].boats[boatModel]
     local currencyType = boatData.currencyType
     local sellPrice = boatData.sellPrice
     TransferAllow = Config.transferAllow
@@ -483,14 +489,14 @@ function BoatMenu(ownedData, shopId)
     local descTransfer
 
     if currencyType == "cash" then
-        descSell = _U("sell") .. BoatName .. _U("frcash2") .. sellPrice
+        descSell = _U("sell") .. boatName .. _U("frcash2") .. sellPrice
 
     elseif currencyType == "gold" then
-        descSell = _U("sell") .. BoatName .. _U("fr2") .. sellPrice .. _U("ofgold2")
+        descSell = _U("sell") .. boatName .. _U("fr2") .. sellPrice .. _U("ofgold2")
     end
 
     if TransferAllow then
-        descTransfer = _U("transfer") .. BoatName .. _U("transferShop")
+        descTransfer = _U("transfer") .. boatName .. _U("transferShop")
     else
         descTransfer = _U("transferDisabledMenu")
     end
@@ -499,7 +505,7 @@ function BoatMenu(ownedData, shopId)
         {
             label = _U("launch"),
             value = "launch",
-            desc = _U("launchBoat") .. BoatName
+            desc = _U("launchBoat") .. boatName
         },
         {
             label = _U("sellBoat"),
@@ -515,7 +521,7 @@ function BoatMenu(ownedData, shopId)
     MenuData.Open('default', GetCurrentResourceName(), 'menuapi' .. shopId,
     {
         title = Config.boatShops[shopId].shopName,
-        subtext = BoatName,
+        subtext = boatName,
         align = "top-left",
         elements = elements,
         lastmenu = 'MainMenu',
@@ -530,11 +536,11 @@ function BoatMenu(ownedData, shopId)
             InMenu = false
             ClearPedTasksImmediately(player)
             DisplayRadar(true)
-            SpawnBoat(ownedData)
+            SpawnBoat()
 
         elseif data.current.value == "sell" then
 
-            TriggerServerEvent('oss_boats:SellBoat', ownedData, boatData)
+            TriggerServerEvent('oss_boats:SellBoat', OwnedData, boatData)
             menu.close()
             InMenu = false
             ClearPedTasksImmediately(player)
@@ -543,7 +549,7 @@ function BoatMenu(ownedData, shopId)
         elseif data.current.value == "transfer" then
 
             if TransferAllow then
-                TransferBoat(ownedData, boatData, shopId)
+                TransferBoat(boatData, shopId)
             else
                 VORPcore.NotifyRightTip(_U("transferDisabled"),4000)
             end
@@ -558,12 +564,11 @@ function BoatMenu(ownedData, shopId)
 end
 
 -- Menu to Choose Shop to Transfer Boat
-function TransferBoat(ownedData, boatData, shopId)
+function TransferBoat(boatData, shopId)
     MenuData.CloseAll()
     InMenu = true
-    local name = ownedData.name
-    local model = ownedData.model
-    local location = ownedData.location
+    local name = OwnedData.name
+    local location = OwnedData.location
     local currencyType = boatData.currencyType
     local transferPrice = boatData.transferPrice
     local descTransfer
@@ -602,7 +607,7 @@ function TransferBoat(ownedData, boatData, shopId)
             local shopName = Config.boatShops[transferLocation].shopName
             if transferLocation ~= location then
                 if not next(Config.boatShops[transferLocation].allowedJobs) then
-                    TriggerServerEvent("oss_boats:TransferBoat", ownedData, transferLocation, menuTransfer, boatData, shopName)
+                    TriggerServerEvent("oss_boats:TransferBoat", OwnedData, transferLocation, menuTransfer, boatData, shopName)
                     menu.close()
                     InMenu = false
                     ClearPedTasksImmediately(PlayerPedId())
@@ -613,7 +618,7 @@ function TransferBoat(ownedData, boatData, shopId)
                     if PlayerJob then
                         if CheckJob(Config.boatShops[transferLocation].allowedJobs, PlayerJob) then
                             if tonumber(Config.boatShops[transferLocation].jobGrade) <= tonumber(JobGrade) then
-                                TriggerServerEvent("oss_boats:TransferBoat", ownedData, transferLocation, menuTransfer, boatData, shopName)
+                                TriggerServerEvent("oss_boats:TransferBoat", OwnedData, transferLocation, menuTransfer, boatData, shopName)
                                 menu.close()
                                 InMenu = false
                                 ClearPedTasksImmediately(PlayerPedId())
@@ -711,14 +716,14 @@ function BoatOptionsMenu()
 end
 
 -- Spawn New or Owned Boat
-function SpawnBoat(ownedData)
+function SpawnBoat()
     if MyBoat then
         DeleteEntity(MyBoat)
     end
     local player = PlayerPedId()
-    local name = ownedData.name
-    local model = ownedData.model
-    local location = ownedData.location
+    local name = OwnedData.name
+    local model = OwnedData.model
+    local location = OwnedData.location
     local boatConfig = Config.boatShops[location]
     RequestModel(model)
     while not HasModelLoaded(model) do
