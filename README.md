@@ -13,6 +13,7 @@ This is a basic boating script for RedM servers using the [VORP framework](https
 - Blips can change color reflecting if shop is open or closed
 - Shop access can be limited by job and jobgrade
 - Boats can be returned at the shop location via prompt or remotely using the in-boat menu after parking/beaching the boat somewhere
+- In-boat menu for anchor operation and remote boat return
 - Config setting to prevent the spawning of NPC boats
 - Boats can be driven across the map without sinking
 
