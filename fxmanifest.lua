@@ -21,5 +21,6 @@ shared_scripts {
 }
 
 dependencies {
-    'menuapi'
+    'menuapi',
+    'oxmysql'
 }

@@ -57,6 +57,7 @@ Settings can be changed in the `config.lua` file. Here is an example of one shop
 #### Dependencies
 - [vorp_core](https://github.com/VORPCORE/vorp-core-lua)
 - [menuapi](https://github.com/outsider31000/menuapi)
+- [oxmysql](https://github.com/overextended/oxmysql)
 
 #### Installation
 - Ensure that the dependancies are added and started
