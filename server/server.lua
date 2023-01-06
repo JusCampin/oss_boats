@@ -21,8 +21,13 @@ AddEventHandler('oss_boats:BuyBoat', function(buyData, location)
             Character.removeCurrency(0, buyPrice)
             VORPcore.NotifyRightTip(_source, _U("bought") .. name .. _U("frcash") .. buyPrice, 4000)
 
-            local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model }
-            exports.ghmattimysql:execute("INSERT INTO boats ( `identifier`, `charid`, `location`, `name`, `model` ) VALUES ( @identifier, @charid, @location, @name, @model )", Parameters)
+            MySQL.Async.execute('INSERT INTO boats (identifier, charid, name, model, location) VALUES (@identifier, @charid, @name, @model, @location)', {
+                ['@identifier'] = identifier,
+                ['@charid'] = charid,
+                ['@name'] = name,
+                ['@model'] = model,
+                ['@location'] = location
+            })
         else
             VORPcore.NotifyRightTip(_source, _U("shortCash"), 4000)
         end
@@ -33,8 +38,13 @@ AddEventHandler('oss_boats:BuyBoat', function(buyData, location)
             Character.removeCurrency(1, buyPrice)
             VORPcore.NotifyRightTip(_source, _U("bought") .. name .. _U("fr") .. buyPrice .. _U("ofgold"), 4000)
 
-            local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model }
-            exports.ghmattimysql:execute("INSERT INTO boats ( `identifier`, `charid`, `location`, `name`, `model` ) VALUES ( @identifier, @charid, @location, @name, @model )", Parameters)
+            MySQL.Async.execute('INSERT INTO boats (identifier, charid, name, model, location) VALUES (@identifier, @charid, @name, @model, @location)', {
+                ['@identifier'] = identifier,
+                ['@charid'] = charid,
+                ['@name'] = name,
+                ['@model'] = model,
+                ['@location'] = location
+            })
         else
             VORPcore.NotifyRightTip(_source, _U("shortGold"), 4000)
         end
@@ -49,15 +59,16 @@ AddEventHandler('oss_boats:GetOwnedBoats', function(location, shopId)
     local identifier = Character.identifier
     local charid = Character.charIdentifier
 
-    exports["ghmattimysql"]:execute("SELECT name, model, location FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location",
-    { ["@identifier"] = identifier, ["@charid"] = charid, ["@location"] = location }, function(result)
-
-        if result[1] then
-            TriggerClientEvent("oss_boats:OwnedBoatsMenu", _source, result, shopId)
-        else
-            VORPcore.NotifyRightTip(_source, _U("noBoats"), 4000)
-        end
-    end)
+    local result = MySQL.query.await('SELECT * FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location', {
+        ['@identifier'] = identifier,
+        ['@charid'] = charid,
+        ['@location'] = location
+    })
+    if result[1] then
+        TriggerClientEvent("oss_boats:OwnedBoatsMenu", _source, result, shopId)
+    else
+        VORPcore.NotifyRightTip(_source, _U("noBoats"), 4000)
+    end
 end)
 
 -- Sell Owned Boats
@@ -77,15 +88,25 @@ AddEventHandler('oss_boats:SellBoat', function(ownedData, boatData)
         Character.addCurrency(0, sellPrice)
         VORPcore.NotifyRightTip(_source, _U("sold") .. name .. _U("frcash") .. sellPrice, 4000)
 
-        local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model }
-        exports.ghmattimysql:execute("DELETE FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
+        MySQL.Async.execute('DELETE FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1', {
+            ['@identifier'] = identifier,
+            ['@charid'] = charid,
+            ['@location'] = location,
+            ['@name'] = name,
+            ['@model'] = model
+        })
 
     elseif currencyType == "gold" then
         Character.addCurrency(1, sellPrice)
         VORPcore.NotifyRightTip(_source, _U("sold") .. name .. _U("fr") .. sellPrice .. _U("ofgold"), 4000)
 
-        local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model }
-        exports.ghmattimysql:execute("DELETE FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
+        MySQL.Async.execute('DELETE FROM boats WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1', {
+            ['@identifier'] = identifier,
+            ['@charid'] = charid,
+            ['@location'] = location,
+            ['@name'] = name,
+            ['@model'] = model
+        })
     end
 end)
 
@@ -108,8 +129,14 @@ AddEventHandler('oss_boats:TransferBoat', function(ownedData, transferLocation, 
                 Character.removeCurrency(0, transferPrice)
                 VORPcore.NotifyRightTip(_source, _U("transferred") .. name .. _U("to") .. shopName .. _U("frcash") .. transferPrice, 4000)
 
-                local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model, ['transferLocation'] = transferLocation }
-                exports.ghmattimysql:execute("UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
+                MySQL.Async.execute('UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1', {
+                    ['@identifier'] = identifier,
+                    ['@charid'] = charid,
+                    ['@location'] = location,
+                    ['@name'] = name,
+                    ['@model'] = model,
+                    ['@transferLocation'] = transferLocation
+                })
             else
                 VORPcore.NotifyRightTip(_source, _U("shortCash"), 4000)
             end
@@ -120,16 +147,28 @@ AddEventHandler('oss_boats:TransferBoat', function(ownedData, transferLocation, 
                 Character.removeCurrency(1, transferPrice)
                 VORPcore.NotifyRightTip(_source, _U("transferred") .. name .. _U("to") .. shopName .. _U("fr") .. transferPrice .. _U("ofgold"), 4000)
 
-                local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model, ['transferLocation'] = transferLocation }
-                exports.ghmattimysql:execute("UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
+                MySQL.Async.execute('UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1', {
+                    ['@identifier'] = identifier,
+                    ['@charid'] = charid,
+                    ['@location'] = location,
+                    ['@name'] = name,
+                    ['@model'] = model,
+                    ['@transferLocation'] = transferLocation
+                })
             else
                 VORPcore.NotifyRightTip(_source, _U("shortGold"), 4000)
             end
         end
 
     elseif transferMode == "driveTransfer" then
-        local Parameters = { ['identifier'] = identifier, ['charid'] = charid, ['location'] = location, ['name'] = name, ['model'] = model, ['transferLocation'] = transferLocation }
-        exports.ghmattimysql:execute("UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1", Parameters)
+        MySQL.Async.execute('UPDATE boats SET location = @transferLocation WHERE identifier = @identifier AND charid = @charid AND location = @location AND name = @name AND model = @model LIMIT 1', {
+            ['@identifier'] = identifier,
+            ['@charid'] = charid,
+            ['@location'] = location,
+            ['@name'] = name,
+            ['@model'] = model,
+            ['@transferLocation'] = transferLocation
+        })
     end
 end)
 
